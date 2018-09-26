@@ -1,5 +1,5 @@
 image:
-  repository: informaticslab/s3-fuse-flex-volume
+  repository: registry.cn-hangzhou.aliyuncs.com/snailwalker/s3-fuse-flex-volume
   tag: latest
   pullPolicy: Always
 flexVolume:

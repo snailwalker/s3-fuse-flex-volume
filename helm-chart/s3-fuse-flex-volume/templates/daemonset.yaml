@@ -13,7 +13,7 @@ spec:
     spec:
       initContainers:
         - name: install-host-deps
-          image: busybox:latest
+          image: registry.cn-hangzhou.aliyuncs.com/snailwalker/busybox:latest
           imagePullPolicy: Always
           securityContext:
               privileged: true
@@ -23,7 +23,8 @@ spec:
           command:
             - sh
             - -c
-            - chroot /rootfs apt-get update && chroot /rootfs apt-get install -y fuse python3-pip && chroot /rootfs pip3 install git+git://github.com/met-office-lab/pysssix.git@big_cache && chroot /rootfs curl -L -o /usr/bin/goofys http://bit.ly/goofys-latest && chroot /rootfs chmod +x /usr/bin/goofys
+              #- chroot /rootfs apt-get update && chroot /rootfs apt-get install -y fuse python3-pip && chroot /rootfs pip3 install git+git://github.com/met-office-lab/pysssix.git@big_cache && chroot /rootfs curl -L -o /usr/bin/goofys http://bit.ly/goofys-latest && chroot /rootfs chmod +x /usr/bin/goofys
+            - chroot /rootfs yum install -y fuse python34-pip && chroot /rootfs pip3 install git+git://github.com/met-office-lab/pysssix.git@big_cache && chroot /rootfs curl -L -o /usr/bin/goofys http://bit.ly/goofys-latest && chroot /rootfs chmod +x /usr/bin/goofys
         - name: s3-flex-volume-drivers-deploy
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: Always
@@ -36,7 +37,7 @@ spec:
               name: flexvolume-usrlocalbin
       containers:
         - name: pause
-          image: gcr.io/google_containers/pause
+          image: registry.cn-hangzhou.aliyuncs.com/snailwalker/pause:3.1
       volumes:
         - name: flexvolume-plugindir
           hostPath:

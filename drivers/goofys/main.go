@@ -40,6 +40,9 @@ func Mount(target string, options map[string]string) interface{} {
 
 	bucket := options["bucket"]
 	subPath := options["subPath"]
+	endpoint := options["endpoint"]
+	region := options["region"]
+	profile := options["profile"]
 	dirMode, ok := options["dirMode"]
 	if ! ok {
 		dirMode = "0755"
@@ -52,7 +55,7 @@ func Mount(target string, options map[string]string) interface{} {
 
 	if !isMountPoint(mountPath) {
 		os.MkdirAll(mountPath, 0755)
-		mountCmd := exec.Command("goofys", "-o", "allow_other", "--dir-mode", dirMode, "--file-mode", fileMode, bucket, mountPath)
+		mountCmd := exec.Command("goofys", "-o", "allow_other", "--dir-mode", dirMode, "--file-mode", fileMode, "--endpoint", endpoint, "--region", region, "--profile", profile, bucket, mountPath)
 		mountCmd.Start()
 	}
 
