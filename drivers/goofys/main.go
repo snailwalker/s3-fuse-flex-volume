@@ -97,7 +97,7 @@ func main() {
 	case "init":
 		printJSON(Init())
 	case "mount":
-		optsString := os.Args[3]
+		optsString := os.Args[5]
 		opts := make(map[string]string)
 		json.Unmarshal([]byte(optsString), &opts)
 		printJSON(Mount(os.Args[2], opts))
